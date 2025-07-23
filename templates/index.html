@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dave, the Weld Mapping Guy</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('{{ url_for('static', filename='service-worker.js') }}');
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <img src="{{ url_for('static', filename='images/icon.jpg') }}" class="icono" alt="icon">
+    <h1 style="background:black; color:white; padding:8px 16px; border-radius:8px; display:inline-block; margin:10px 0;">
+      Dave, the Weld Mapping Guy
+    </h1>
+
+    <p><strong>Saved Records: <span id="contador">0</span></strong></p>
+    <input
+      type="text"
+      id="nombre_generador"
+      readonly
+      placeholder="Device / Browser"
+      style="background: #fffad1; font-weight: bold; text-align: center;"
+    />
+
+    <form id="form">
+      <input type="text" id="project_name" name="Project Name" placeholder="Project Name" required />
+      <input type="text" id="line_number"  name="Line Number"  placeholder="Line Number" required />
+      <input type="text" id="pipe_size"    name="Pipe Size"    placeholder="Pipe Size" />
+      <input type="text" id="pipe_sch"     name="Pipe SCH"     placeholder="Pipe SCH" />
+      <input type="text" id="joint_type"   name="Joint Type"   placeholder="Joint Type" />
+      <input type="text" id="material_type" name="Material Type" placeholder="Material Type" />
+      <input type="text" id="weld_id"      name="Weld ID"      placeholder="Weld ID" required />
+      <input type="text" id="stencil"      name="Stencil"      placeholder="Stencil" required />
+      <input type="text" id="fab_date"     name="Fabrication Date" placeholder="MM/DD/YYYY" required />
+      <input type="text" id="ht_a"         name="HT Side A"    placeholder="HT Side A" />
+      <input type="file" id="foto_ht_a" accept="image/*" capture="environment" />
+      <input type="text" id="ht_b"         name="HT Side B"    placeholder="HT Side B" />
+      <input type="file" id="foto_ht_b" accept="image/*" capture="environment" />
+      <textarea id="comentario" name="Comentario" placeholder="Comments (optional)"></textarea>
+      <button type="button" class="add" onclick="guardar()">➕ Add Record</button>
+    </form>
+
+    <button class="finalizar" onclick="finalizarCaptura()">✅ Finish Capture</button>
+
+    <ul id="lista"></ul>
+
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">×</span>
+        <img src="{{ url_for('static', filename='images/final.jpg') }}" class="final-img" alt="final">
+        <p><strong>Capture completed successfully</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
